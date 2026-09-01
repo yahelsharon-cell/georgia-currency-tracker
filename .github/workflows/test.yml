@@ -1,0 +1,25 @@
+name: PR Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download the code
+        uses: actions/checkout@v4
+        
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          
+      - name: Install dependencies
+        run: pip install requests python-dotenv pytest
+        
+      - name: Run Pytest
+        run: python -m pytest
